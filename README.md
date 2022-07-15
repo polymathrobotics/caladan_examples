@@ -1,2 +1,2 @@
 # caladan_examples
-Get your robot moving autonomously in simulation - today!
+See your robot moving autonomously in simulation - today!
