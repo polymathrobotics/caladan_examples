@@ -1,0 +1,2 @@
+requests>=2.22.0
+pysimplegui>=4.50.0
