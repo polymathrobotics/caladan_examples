@@ -1,0 +1,29 @@
+name: 'PR'
+on:
+  - pull_request
+jobs:
+  preview:
+    name: Preview
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: Install Black
+        run: pip install black
+
+      - name: Run Black
+        uses: psf/black@stable
+        with:
+          src: "."
+
+      - name: Install flake8
+        run: pip install flake8
+
+      - uses: TrueBrain/actions-flake8@v2
+        with:
+          path: .
