@@ -1,5 +1,5 @@
 # caladan_examples
-See your robot moving autonomously in simulation - today!
+See your robot.  moving autonomously in simulation - today!
 
 ## Installation
 Ensure you have Python3 and pip installed.
