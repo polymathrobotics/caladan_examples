@@ -11,3 +11,5 @@ tilling_goals = [
 
 odom = dict()
 stat = dict()
+
+api_url = "https://beta-caladan.polymathrobotics.dev/api/"

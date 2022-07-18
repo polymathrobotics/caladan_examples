@@ -15,11 +15,11 @@
 import time
 import math
 import PySimpleGUI as sg
-import CaladanAPI
+import caladan_api
 import portworld_config
 
-url = "https://beta-caladan.polymathrobotics.dev/api/"
-api = CaladanAPI.simple_api("", "", "")
+url = portworld_config.api_url
+api = caladan_api.SimpleAPI("", "", "")
 scale = 400000.0  # Used to change scale of drawing scene
 font = ("Courier New", 6)
 
@@ -139,7 +139,7 @@ while True:
     if event == sg.WIN_CLOSED or event == "Exit":
         break
     if event == "Connect":
-        api = CaladanAPI.simple_api(url, values[1], values[0])
+        api = caladan_api.SimpleAPI(url, values[1], values[0])
         uuid_response = api.get_uuid()
         if "uuid" in uuid_response:
             window["-PROMPT-"].update(

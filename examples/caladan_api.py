@@ -7,7 +7,7 @@
 import requests
 
 
-class simple_api:
+class SimpleAPI:
     def __init__(self, url, key, token):
         self.token = token
         self.key = key
@@ -70,7 +70,7 @@ class simple_api:
 # url = "https://beta-caladan.polymathrobotics.dev/api/"
 # unique_key = "*******"
 # token= "*******"
-# api = simple_api(url,unique_key,token)
+# api = SimpleAPI(url,unique_key,token)
 # print (api.get_uuid())
 # print (api.get_position())
 # print (api.send_gps_goal(37.72521573304834,-120.99957108740163,3.14))

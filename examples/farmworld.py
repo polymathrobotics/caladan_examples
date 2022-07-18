@@ -7,11 +7,11 @@
 import time  # used for sleep
 import math  # used for some basic trigonometry
 import PySimpleGUI as sg  # used for the Gui
-import CaladanAPI  # example API library included with this example
+import caladan_api  # example API library included with this example
 import farmworld_config  # simple convenience, used to store config values
 
-url = "https://beta-caladan.polymathrobotics.dev/api/"
-api = CaladanAPI.simple_api("", "", "")
+url = farmworld_config.api_url
+api = caladan_api.SimpleAPI("", "", "")
 scale = 400000.0  # Used to change scale of drawing scene
 font = ("Courier New", 7)
 
@@ -168,7 +168,7 @@ while True:  # Main UI Loop
             )  # NOTE: Clicking on the map always sends orientation 0!
 
     if event == "Connect":  # First time clicking the connect button, check we get UUID
-        api = CaladanAPI.simple_api(url, values[1], values[0])
+        api = caladan_api.SimpleAPI(url, values[1], values[0])
         uuid_response = api.get_uuid()
         if "uuid" in uuid_response:
             window["-PROMPT-"].update(
