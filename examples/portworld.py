@@ -15,8 +15,8 @@
 import time
 import math
 import PySimpleGUI as sg
-import caladan_api
-import portworld_config
+from caladan import caladan_api
+from configs import portworld_config
 
 url = portworld_config.api_url
 api = caladan_api.SimpleAPI("", "", "")

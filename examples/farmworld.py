@@ -7,8 +7,8 @@
 import time  # used for sleep
 import math  # used for some basic trigonometry
 import PySimpleGUI as sg  # used for the Gui
-import caladan_api  # example API library included with this example
-import farmworld_config  # simple convenience, used to store config values
+from caladan import caladan_api
+from configs import farmworld_config
 
 url = farmworld_config.api_url
 api = caladan_api.SimpleAPI("", "", "")
