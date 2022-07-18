@@ -101,6 +101,7 @@ def clear_image():
     image = graph.DrawImage(
         filename="../images/port_world.png", location=(0, 0.001578659 * scale - 1)
     )
+    graph.DrawImage(filename="../images/port_world.png", location=(0, 0.001578659 * scale - 1))
 
 
 clear_image()
@@ -108,7 +109,9 @@ clear_image()
 while True:
     event, values = window.read()
     # print(event, values)
-    # rectangle = graph.draw_rectangle((1, 1), (0.001248654*scale-1, 0.001578659*scale-1), line_color='#719CDA')
+    graph.draw_rectangle(
+        (1, 1), (0.001248654 * scale - 1, 0.001578659 * scale - 1), line_color="#719CDA"
+    )
 
     if window["Connect"].get_text() == "Connected":  # Only update if connected
         # print(portworld_config.odom)

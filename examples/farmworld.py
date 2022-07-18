@@ -68,8 +68,8 @@ def pixelXY_to_latlon(x, y):
 
 def send_goal(lat, lon, yaw):
     x, y = latlon_to_pixelXY(lat, lon)
-    target = graph.draw_circle((x, y), 3, fill_color="#1C1E23", line_color="red")
-    target_text = graph.DrawText(
+    graph.draw_circle((x, y), 3, fill_color="#1C1E23", line_color="red")
+    graph.DrawText(
         text=(round(lat, 5), round(lon, 5)),
         location=(x, y - 7),
         font=font,
@@ -112,6 +112,7 @@ def graph_clean():
     image = graph.DrawImage(
         filename="../images/farm_world.png", location=(0, 0.001578659 * scale - 1)
     )
+    graph.DrawImage(filename="../images/farm_world.png", location=(0, 0.001578659 * scale - 1))
 
 graph_clean()
 

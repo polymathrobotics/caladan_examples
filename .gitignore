@@ -8,7 +8,7 @@ __pycache__/
 *$py.class
 # C extensions
 *.so
-
+.flake8
 # Distribution / packaging
 .Python
 build/
