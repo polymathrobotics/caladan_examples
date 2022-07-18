@@ -28,3 +28,11 @@ Install dependencies using the requirements file
 
 ## Get started
 
+##### To launch the farm world gui example
+`python3 examples/farmworld.py
+`
+##### To launch the port world gui example
+`python3 exmaples/portworld.py`
+
+## Questions?
+Email `caladan @ polymathrobotics.com`
