@@ -58,7 +58,7 @@ layout = [
 window = sg.Window(
     "Polymath Robotics Caladan Portworld Example",
     layout,
-    icon="icon.png",
+    icon="../images/icon.png",
     finalize=True,
 )
 graph = window["graph"]
@@ -99,7 +99,7 @@ def parking():
 def clear_image():
     graph.Erase()
     image = graph.DrawImage(
-        filename="port_world.png", location=(0, 0.001578659 * scale - 1)
+        filename="../images/port_world.png", location=(0, 0.001578659 * scale - 1)
     )
 
 

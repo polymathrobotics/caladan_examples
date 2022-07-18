@@ -8,7 +8,7 @@ import time  # used for sleep
 import math  # used for some basic trigonometry
 import PySimpleGUI as sg  # used for the Gui
 import CaladanAPI  # example API library included with this example
-import farmworld_config  # simple convinience, used to store
+import farmworld_config  # simple convenience, used to store config values
 
 url = "https://beta-caladan.polymathrobotics.dev/api/"
 api = CaladanAPI.simple_api("", "", "")
@@ -43,7 +43,7 @@ layout = [
 window = sg.Window(
     "Polymath Robotics Caladan Farmworld Example",
     layout,
-    icon="icon.png",
+    icon="../images/icon.png",
     finalize=True,
 )
 graph = window["graph"]
@@ -110,8 +110,10 @@ def tilling():
 def graph_clean():
     graph.Erase()
     image = graph.DrawImage(
-        filename="farm_world.png", location=(0, 0.001578659 * scale - 1)
+        filename="../images/farm_world.png", location=(0, 0.001578659 * scale - 1)
     )
+
+graph_clean()
 
 
 while True:  # Main UI Loop
