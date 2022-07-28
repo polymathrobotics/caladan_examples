@@ -1,4 +1,4 @@
-# caladan_examples [![caladan_examples](https://github.com/polymathrobotics/caladan_examples/actions/workflows/push.yml/badge.svg?event=push)](https://github.com/polymathrobotics/caladan_examples/actions/workflows/push.yml)
+# caladan_examples [![caladan_examples](https://github.com/polymathrobotics/caladan_examples/actions/workflows/ci.yml/badge.svg?event=push)](https://github.com/polymathrobotics/caladan_examples/actions/workflows/ci.yml)
 
 See your robot moving autonomously in simulation - today!
 
