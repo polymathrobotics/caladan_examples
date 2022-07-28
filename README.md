@@ -5,7 +5,10 @@ See your robot moving autonomously in simulation - today!
 ## Requirements
 
 1. Python3
-2. Pip3
+2. Pip3  
+  
+Once you have both of the above installed, you can go to the installation section below to pull down requirements.  
+These are python libraries [Requests](https://pypi.org/project/requests/) and [PySimpleGUI](https://pypi.org/project/PySimpleGUI/)
 
 #### On Mac:
 
