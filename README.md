@@ -26,6 +26,12 @@ sudo apt update
 sudo apt install python3-pip
 ```
 
+#### On Windows:
+
+```bash
+Download Windows Installer (likely 64bit) from: https://www.python.org/downloads/release/python-3105/
+Or search python3 in the Microsoft Store
+```
 
 ## Quick Start
 
