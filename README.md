@@ -103,7 +103,8 @@ Python 3.8.10
 - Q: I Don't have a token and key?
   - A: Sign up for our beta! 
 
-- NB: Add your token and key to farmworld_config.py and portworld_config.py files directly, so you don't have to copy/paste them in every time you start the examples.
+- NB: Add your token and key to farmworld_config.py and portworld_config.py files directly, so you don't have to copy/paste them in every time you start the examples. Alternatively you can place the token and key in a `.env` file (see `.env.example`).
+
 
 - NB: Clicking to send a goal in the examples always sets the orientation to 0 (north or up). Try changing this to a click-and-drag behavior to set orientation, as a first improvement to make!
 
