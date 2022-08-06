@@ -44,4 +44,3 @@ api_url = "https://beta-caladan.polymathrobotics.dev/api/"
 # Enter your Polymath Robotics provided Bearer Token and Device Key here!
 token = os.getenv("ACCESS_TOKEN") if os.getenv("ACCESS_TOKEN") else "Bearer Token"
 key = os.getenv("DEVICE_KEY") if os.getenv("DEVICE_KEY") else "Device Key"
-
