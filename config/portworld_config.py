@@ -1,6 +1,10 @@
 # Copyright (c) 2022-present, Polymath Robotics, Inc.
 # Example farmworld UI for using the Caladan API in Python
 # Designed as a simple teaching example, not feature complete or fully robust.
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Example set of goals for vehicle to follow
 parking_goals = [
@@ -38,5 +42,6 @@ stat = dict()
 api_url = "https://beta-caladan.polymathrobotics.dev/api/"
 
 # Enter your Polymath Robotics provided Bearer Token and Device Key here!
-token = "Bearer Token"
-key = "Device Key"
+token = os.getenv("ACCESS_TOKEN") if os.getenv("ACCESS_TOKEN") else "Bearer Token"
+key = os.getenv("DEVICE_KEY") if os.getenv("DEVICE_KEY") else "Device Key"
+
