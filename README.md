@@ -35,7 +35,10 @@ Or search python3 in the Microsoft Store
 
 ## Quick Start
 
-First, clone this repo and then open a terminal in the folder.
+Open the [API webpage](https://beta-caladan.polymathrobotics.dev/docs#/Launch/start_sim_world_api_launch_sim_world_post), Authorize with your Bearer Token, click "try it out" and enter your device key.
+For launching simulation_world, you can choose between farm, port or mine.
+
+Clone this repo and then open a terminal in the folder.
 
 ### Installation
 
@@ -85,6 +88,7 @@ Check the bottom of the caladan_api.py file for example usage of the API in Pyth
 user@computer:~/caladan_examples$ python3
 Python 3.8.10
  
+>>> import caladan_api
 >>> url = "https://beta-caladan.polymathrobotics.dev/api/"
 >>> device_key = "******"
 >>> token = "*******"

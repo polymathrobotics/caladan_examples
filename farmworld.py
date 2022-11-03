@@ -184,8 +184,8 @@ while True:  # Main UI Loop
             x, y = values["graph"]
             lat, lon = pixelXY_to_latlon(x, y)
             send_goal(
-                lat, lon, yaw=0
-            )  # NOTE: Clicking on the map always sends orientation 0!
+                lat, lon, yaw=1.57
+            )  # NOTE: Clicking on the map always sends orientation NORTH!
 
     if event == "Connect":  # First time clicking the connect button, check we get UUID
         api = caladan_api.SimpleAPI(url, values[1], values[0])

@@ -5,6 +5,7 @@
 # Designed as a simple teaching example, not feature complete or fully robust.
 
 import requests
+import json
 
 
 class SimpleAPI:
@@ -31,6 +32,7 @@ class SimpleAPI:
         api_url = self.url + "uuid?device_key=" + self.key
         response = requests.get(api_url, headers=self.headers, timeout=30)
         return self.status_check(response.json())
+        
 
     def get_position(self):
         api_url = self.url + "position?device_key=" + self.key
@@ -56,6 +58,23 @@ class SimpleAPI:
             timeout=10,
         )
         return self.status_check(response.json())
+    
+    def send_waypoints(self, goals): #Expect an array of 3 entry sets
+        api_url = self.url + "send-waypoints?device_key=" + self.key
+        r = {"goals":[]}
+        for waypoint in goals:
+            print(json.dumps(waypoint[2]))
+            r["goals"].append({"lat":json.dumps(waypoint[0]),"lon":json.dumps(waypoint[1]),"yaw":json.dumps(waypoint[2])})
+        print (r)
+        self.headers["Content-Type"] = "application/json"
+        response = requests.post(
+            api_url,
+            headers=self.headers,
+            json=r,
+            timeout=10,
+        )
+        self.headers["Content-Type"] = "application/x-www-form-urlencoded"
+        return self.status_check(response.json())    
 
     def cancel_prev_goal(self):
         api_url = self.url + "cancel-prev-goal?device_key=" + self.key
@@ -63,14 +82,16 @@ class SimpleAPI:
         return self.status_check(response.json())
 
 
-# Example Usage
+# Example Usage in 
+# import caladan_api
 # url = "https://beta-caladan.polymathrobotics.dev/api/"
 # device_key = "*******"
 # token= "*******"
 # api = SimpleAPI(url,device_key,token)
 # print (api.get_uuid())
 # print (api.get_position())
-# print (api.send_gps_goal(37.72521573304834,-120.99957108740163,3.14))
+# print (api.send_gps_goal(37.72521,-120.99957,3.14))
 # print (api.pose_with_odometry())
 # print (api.cancel_prev_goal())
+# print (api.send_waypoints([[37.725017,-120.998852,None],[37.72519,-120.998815,3.14]]))
 # print (api.goal_status()) # Note: that goal status will take a few seconds to change when a new goal is sent
