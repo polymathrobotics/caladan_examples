@@ -9,7 +9,7 @@ shed_goal = (37.724570, -120.998354, 0)
 button_a = ("Crane A", 37.725380, -120.998295, -3.14)
 button_b = ("Crane B", 37.725189, -120.998295, -3.14)
 button_c = ("Crane C", 37.724960, -120.998295, -3.14)
-button_d = ("Train Load", 37.72465,  -120.99914, 0)
+button_d = ("Train Load", 37.72465, -120.99914, 0)
 button_e = ("Train Unload", 37.72481, -120.99947, -1.57)
 
 # Overall size of the map, south-west corner, then north-east corner
@@ -32,5 +32,5 @@ stat = dict()
 api_url = "https://beta-caladan.polymathrobotics.dev/api/"
 
 # Enter your Polymath Robotics provided Bearer Token and Device Key here!
-token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InIwdDRQVnowQklGVjhOSFVhbU5ISyJ9.eyJpc3MiOiJodHRwczovL3BvbHltYXRocm9ib3RpY3MudXMuYXV0aDAuY29tLyIsInN1YiI6ImdCMjhGYUFHMjRnZXdmeGlGZE9zN3REUDFTTEJROExFQGNsaWVudHMiLCJhdWQiOiJodHRwOi8vb3BlbnNpbS1jdXN0b21lci1hcGkuY29tIiwiaWF0IjoxNjYxNzk1NzI2LCJleHAiOjE2NjQzODc3MjYsImF6cCI6ImdCMjhGYUFHMjRnZXdmeGlGZE9zN3REUDFTTEJROExFIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIiwicGVybWlzc2lvbnMiOltdfQ.Ow739feiiwmyhM7KW8kzNkbZSd6u4eHsGn9Clu464baSnnlIvaCvBjWWQ7itrgTmyH2BGQm_rB5NQ1JewCkhlLkSCNaPOELk4nHksFRSPJWQG2HL5JXoOsj9FpjEKRb74WXFkXA8tJMHQ1D2-OoyspJRPiSyX664ggIKCduG69NgxSGtCBCL_n-MLX_FehAJu_O005JrnOn54CTpcum0mOXPVEJQrO_slC9NBJKqzV5q45UQzvltWk52v1_139fCZXe86e56r6OteSAhEZ7n4tOagCuP42q_GlQaIZ1-CJ7u-JBfMuVBZYZNBs6tcE_h9jgOwgzIhilkRHsH0hU5LA"
-key = "ps2g9vajn"
+token = "bearer_token"
+key = "device_key"

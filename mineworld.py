@@ -45,7 +45,12 @@ layout = [
         sg.Button(mineworld_config.button_b[0]),
         sg.Button(mineworld_config.button_c[0]),
     ],
-    [sg.Button(mineworld_config.button_d[0]), sg.Button(mineworld_config.button_e[0])],
+    [
+        sg.Button(mineworld_config.button_d[0]),
+        sg.Button(mineworld_config.button_e[0]),
+        sg.Button(mineworld_config.button_f[0]),
+        sg.Button(mineworld_config.button_g[0]),
+    ],
 ]
 
 
@@ -109,11 +114,22 @@ def tolerance_check(goal, tol):
         return False
 
 
-def parking():
-    for goal in mineworld_config.parking_goals:
-        send_goal(*goal)
-        while not tolerance_check(goal, 0.00003):
-            time.sleep(0.5)
+def bulldoze():
+    while True:  # Cancelled by the STOP button, as this cancels any goal
+        graph_clean()
+        for goal in mineworld_config.bulldoze:
+            send_goal(*goal)
+            while not tolerance_check(goal, 0.00003):
+                time.sleep(0.5)
+
+
+def dump():
+    while True:  # Cancelled by the STOP button, as this cancels any goal
+        graph_clean()
+        for goal in mineworld_config.dump:
+            send_goal(*goal)
+            while not tolerance_check(goal, 0.00003):
+                time.sleep(0.5)
 
 
 def graph_clean():
@@ -174,11 +190,27 @@ while True:  # Main UI Loop
 
         if event == mineworld_config.button_d[0]:
             graph_clean()
-            send_goal(*mineworld_config.button_d[1:])
+            window.perform_long_operation(bulldoze, "-bulldoze DONE-")
 
         if event == mineworld_config.button_e[0]:
             graph_clean()
-            send_goal(*mineworld_config.button_e[1:])
+            window.perform_long_operation(dump, "-dump DONE-")
+
+        if event == mineworld_config.button_f[0]:
+            graph_clean()
+            send_goal(
+                mineworld_config.odom["position"]["latitude"],
+                mineworld_config.odom["position"]["longitude"],
+                mineworld_config.button_f[1],
+            )
+
+        if event == mineworld_config.button_g[0]:
+            graph_clean()
+            send_goal(
+                mineworld_config.odom["position"]["latitude"],
+                mineworld_config.odom["position"]["longitude"],
+                mineworld_config.button_g[1],
+            )
 
         if event == "graph":
             graph_clean()

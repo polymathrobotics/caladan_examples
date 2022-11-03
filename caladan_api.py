@@ -32,7 +32,6 @@ class SimpleAPI:
         api_url = self.url + "uuid?device_key=" + self.key
         response = requests.get(api_url, headers=self.headers, timeout=30)
         return self.status_check(response.json())
-        
 
     def get_position(self):
         api_url = self.url + "position?device_key=" + self.key
@@ -58,14 +57,20 @@ class SimpleAPI:
             timeout=10,
         )
         return self.status_check(response.json())
-    
-    def send_waypoints(self, goals): #Expect an array of 3 entry sets
+
+    def send_waypoints(self, goals):  # Expect an array of 3 entry sets
         api_url = self.url + "send-waypoints?device_key=" + self.key
-        r = {"goals":[]}
+        r = {"goals": []}
         for waypoint in goals:
             print(json.dumps(waypoint[2]))
-            r["goals"].append({"lat":json.dumps(waypoint[0]),"lon":json.dumps(waypoint[1]),"yaw":json.dumps(waypoint[2])})
-        print (r)
+            r["goals"].append(
+                {
+                    "lat": json.dumps(waypoint[0]),
+                    "lon": json.dumps(waypoint[1]),
+                    "yaw": json.dumps(waypoint[2]),
+                }
+            )
+        print(r)
         self.headers["Content-Type"] = "application/json"
         response = requests.post(
             api_url,
@@ -74,7 +79,7 @@ class SimpleAPI:
             timeout=10,
         )
         self.headers["Content-Type"] = "application/x-www-form-urlencoded"
-        return self.status_check(response.json())    
+        return self.status_check(response.json())
 
     def cancel_prev_goal(self):
         api_url = self.url + "cancel-prev-goal?device_key=" + self.key
@@ -82,7 +87,7 @@ class SimpleAPI:
         return self.status_check(response.json())
 
 
-# Example Usage in 
+# Example Usage in
 # import caladan_api
 # url = "https://beta-caladan.polymathrobotics.dev/api/"
 # device_key = "*******"

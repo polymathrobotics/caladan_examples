@@ -80,6 +80,21 @@ python3 -m pip install -r requirements.txt
 
 
 
+##### To launch the mine world gui example
+
+`python3 mineworld.py`
+
+<img src="images/mineworld_screenshot.png" width="412">
+
+1. Enter your Bearer Token and Device Key.
+
+2. Click Connect, and after a second or so, you will get current position and data about your simulated vehicle.
+
+3. Click on some open space in the map, and the vehicle will navigate itself there.
+
+4. Explore! Have fun (note: you will have to click STOP to send a new goal)
+
+
 ## Caladan API
 
 Check the bottom of the caladan_api.py file for example usage of the API in Python directly, for use in your own code. Example:
@@ -104,7 +119,7 @@ Python 3.8.10
 
 ## FAQs
 
-- Q: I Don't have a token and key?
+- Q: I don't have a token and key?
   - A: Sign up for our beta! 
 
 - NB: Add your token and key to farmworld_config.py and portworld_config.py files directly, so you don't have to copy/paste them in every time you start the examples.

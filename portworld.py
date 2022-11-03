@@ -149,10 +149,6 @@ while True:  # Main UI Loop
             graph_clean()
             send_goal(*portworld_config.shed_goal)
 
-        if event == "Parking":
-            graph_clean()
-            window.perform_long_operation(parking, "-parking DONE-")
-
         if event == "STOP":
             graph_clean()
             api.cancel_prev_goal()
