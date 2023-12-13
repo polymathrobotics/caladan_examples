@@ -5,15 +5,17 @@
 # Designed as a simple teaching example, not feature complete or fully robust.
 
 import time  # used for sleep
-import math  # used for some basic trigonometry
 import PySimpleGUI as sg  # used for the Gui
 import caladan_api  # example API library
 import config.farmworld_config as farmworld_config  # simple convenience, used to store config values
+import base64  # Used to display images
+from PIL import Image  # Used to display images
+from io import BytesIO  # Used to display images
 
 url = farmworld_config.api_url
 token = farmworld_config.token
 key = farmworld_config.key
-scale = 400000.0  # Used to change drawing scale of the map
+scale = 335000.0  # Used to change drawing scale of the map
 font = ("Courier New", 7)
 latdiff = abs(farmworld_config.latlon_map[0][0] - farmworld_config.latlon_map[1][0])
 londiff = abs(farmworld_config.latlon_map[0][1] - farmworld_config.latlon_map[1][1])
@@ -36,16 +38,21 @@ layout = [
         )
     ],
     [
-        sg.Button("Start Tilling"),
+        # sg.Button("Start Tilling"),
+        # sg.Button("Pause"),
+        sg.Button("Resume"),
         sg.Button("STOP", button_color=("white", "red")),
-        sg.Text("", key="-STATUS-", size=(45, None)),
+        sg.Button("Snapshot"),
     ],
     [
-        sg.Button("Return to Equipment Shed"),
+        # sg.Button("Return to Equipment Shed"),
         sg.Input("lat", size=10, key="lat"),
         sg.Input("lon", size=10, key="lon"),
         sg.Input("ori", size=10, key="ori"),
         sg.Button("Send Goal"),
+    ],
+    [
+        sg.Text("", key="-STATUS-", size=(45, None)),
     ],
 ]
 
@@ -82,28 +89,42 @@ def send_goal(lat, lon, yaw):
         font=font,
         color="white",
     )
-    api.send_gps_goal(lat, lon, yaw)
+    # print (lat,lon,yaw)
+    api.post_gps_waypoints([[lat, lon, yaw]], 1)
 
 
 def update_loop():
     while True:
-        farmworld_config.stat = api.goal_status()
-        farmworld_config.odom = api.pose_with_odometry()
-        if "orientation" in farmworld_config.odom:
-            quat = farmworld_config.odom["orientation"]
-            farmworld_config.odom["orientation"] = math.atan2(
-                2.0 * (quat["w"] * quat["z"]), 1.0 - 2.0 * (quat["z"] * quat["z"])
-            )
-            window.write_event_value("-UPDATE-", "updated")
+        farmworld_config.stat = api.get_polymath_feedback()
+        print(farmworld_config.stat)
+        if farmworld_config.stat == "Input validation failed":
+            print("Update Miss")
         else:
-            print(farmworld_config.odom)
-        time.sleep(1.2)
+            farmworld_config.odom = farmworld_config.stat[
+                "polymath_feedback"
+            ]  # ['current_pose']['pose']
+            window.write_event_value("-UPDATE-", "updated")
+            time.sleep(1)
+            window["-PROMPT-"].update(
+                "Vehicle Status: "
+                + farmworld_config.stat["polymath_feedback"]["cortex_status"][
+                    "status_text"
+                ]
+            )
 
 
 def tolerance_check(goal, tol):
     if (
-        abs(farmworld_config.odom["position"]["latitude"] - goal[0]) < tol
-        and abs(farmworld_config.odom["position"]["longitude"] - goal[1]) < tol
+        abs(
+            farmworld_config.odom["current_pose"]["pose"]["position"]["latitude"]
+            - goal[0]
+        )
+        < tol
+        and abs(
+            farmworld_config.odom["current_pose"]["pose"]["position"]["longitude"]
+            - goal[1]
+        )
+        < tol
     ):
         return True
     else:
@@ -117,9 +138,17 @@ def tilling():
             time.sleep(0.5)
 
 
+def snapshot():
+    snapshot = api.get_latest_image_frame()["image_base64"]
+    image_data = base64.b64decode(snapshot)
+    image_io = BytesIO(image_data)
+    image = Image.open(image_io)
+    image.show()
+
+
 def graph_clean():
     graph.Erase()
-    graph.DrawImage(filename="./images/farmworld.png", location=(0, latdiff * scale))
+    graph.DrawImage(filename="./images/forest.png", location=(0, latdiff * scale))
 
 
 graph_clean()
@@ -133,22 +162,53 @@ while True:  # Main UI Loop
     # Only update and accept other commands if already connected
     if window["Connect"].get_text() == "Connected":
         window["-VEL-"].update(
-            str(round(farmworld_config.odom["odometry"]["linear.x"], 2)) + " m/s  "
+            "distance to goal: "
+            + str(
+                round(
+                    farmworld_config.odom["navigation_feedback"][
+                        "total_distance_remaining"
+                    ],
+                    2,
+                )
+            )
+            + " m  "
         )
         current_pose = (
             "lat: "
-            + str(round(farmworld_config.odom["position"]["latitude"], 6))
+            + str(
+                round(
+                    farmworld_config.odom["current_pose"]["pose"]["position"][
+                        "latitude"
+                    ],
+                    6,
+                )
+            )
             + " lon: "
-            + str(round(farmworld_config.odom["position"]["longitude"], 6))
+            + str(
+                round(
+                    farmworld_config.odom["current_pose"]["pose"]["position"][
+                        "longitude"
+                    ],
+                    6,
+                )
+            )
             + " angle: "
-            + str(round(farmworld_config.odom["orientation"], 3))
+            + str(
+                round(
+                    api.quaternion_to_euler(
+                        farmworld_config.odom["current_pose"]["pose"]["orientation"]
+                    )[2],
+                    3,
+                )
+            )
         )
         window["-POSE-"].update(current_pose)
         window["-STATUS-"].update(farmworld_config.stat)
         draw_pose = latlon_to_pixelXY(
-            farmworld_config.odom["position"]["latitude"],
-            farmworld_config.odom["position"]["longitude"],
+            farmworld_config.odom["current_pose"]["pose"]["position"]["latitude"],
+            farmworld_config.odom["current_pose"]["pose"]["position"]["longitude"],
         )
+        # print(draw_pose)
         position = graph.draw_circle(
             draw_pose, 3, fill_color="#1C1E23", line_color="white"
         )
@@ -161,9 +221,20 @@ while True:  # Main UI Loop
             graph_clean()
             window.perform_long_operation(tilling, "-tilling DONE-")
 
+        if event == "Snapshot":
+            window.perform_long_operation(snapshot, "-snapshot DONE-")
+
         if event == "STOP":
             graph_clean()
-            api.cancel_prev_goal()
+            api.post_motion_command(0, 1)
+
+        if event == "Pause":
+            # graph_clean()
+            api.post_motion_command(1, 1)
+
+        if event == "Resume":
+            # graph_clean()
+            api.post_motion_command(2, 0)
 
         if event == "Send Goal":
             graph_clean()
@@ -186,6 +257,7 @@ while True:  # Main UI Loop
             send_goal(
                 lat, lon, yaw=1.57
             )  # NOTE: Clicking on the map always sends orientation NORTH!
+            # print(lat,lon)
 
     if event == "Connect":  # First time clicking the connect button, check we get UUID
         api = caladan_api.SimpleAPI(url, values[1], values[0])

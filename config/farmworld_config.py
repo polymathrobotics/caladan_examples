@@ -23,15 +23,15 @@ shed_goal = (37.72448, -120.998921, 0)
 # Multiplying by 400000 to get pixel space (so ~ 616 by 471 )
 # In a real application, please convert correctly, this only works well for small toy examples
 latlon_map = (
-    (37.724367, -120.999586),
-    (37.725545, -120.998047),
+    (37.724152, -120.999721),
+    (37.725573, -120.997862),
 )
 
 odom = dict()
 stat = dict()
 
-api_url = "https://beta-caladan.polymathrobotics.dev/api/"
+api_url = "https://synapse.api.polymathrobotics.dev/v2/"
 
 # Enter your Polymath Robotics provided Bearer Token and Device Key here!
-token = "bearer_token"
-key = "device_key"
+token = "YOUR BEARER TOKEN HERE"
+key = "YOUR DEVICE KEY HERE"
